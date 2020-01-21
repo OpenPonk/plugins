@@ -1,0 +1,28 @@
+SmalltalkCISpec {
+	#loading : [
+		SCIMetacelloLoadSpec {
+			#platforms : [
+				#pharo
+			],
+			#baseline : 'OpenPonk',
+			#repository : 'github://openponk/openponk/repository',
+			#directory : 'repository',
+			#load : [ 'complete' ]
+		}
+	],
+	#postLoading : [
+		'scripts/script.st'
+	],
+	#testing : {
+		#coverage : {
+			#packages : [
+				'OpenPonk*',
+				'Borm*'
+			]
+		},
+		#packages : [
+			'OpenPonk*',
+			'Borm*'
+		]
+	}
+}
