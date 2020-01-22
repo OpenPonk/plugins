@@ -6,6 +6,7 @@ env:
   - PROJECT_NAME=all-in-one
   - FULL_PROJECT_NAME=openponk-$PROJECT_NAME
 smalltalk:
+smalltalk:
   - Pharo64-7.0
     - PHARO_VERSION="7.0"
     - PHARO_BITS="64"
@@ -15,9 +16,9 @@ smalltalk:
   - Pharo64-8.0
     - PHARO_VERSION="8.0"
     - PHARO_BITS="64"
- # - Pharo64-9.0
- #   - PHARO_VERSION="9.0"
- #   - PHARO_BITS="64"
+  - Pharo64-9.0
+    - PHARO_VERSION="9.0"
+    - PHARO_BITS="64"
 before_install:
   - echo $PROJECT_NAME
   - echo $FULL_PROJECT_NAME
@@ -39,7 +40,7 @@ deploy:
       smalltalk: Pharo64-8.0
     skip_cleanup: true
     script: 
-      ./scripts/deploy.sh
+      bash scripts/deploy.sh;
 cache:
   directories:
   - "$SMALLTALK_CI_BUILD_BASE/pharo-local/package-cache"
