@@ -5,7 +5,7 @@ SmalltalkCISpec {
 				#pharo
 			],
 			#baseline : 'OpenPonk',
-			#repository : 'github://openponk/openponk:v2.0.0/repository',
+			#repository : 'github://openponk/openponk:v2.0.1/repository',
 			#directory : 'repository',
 			#load : [ 'complete' ]
 		}
