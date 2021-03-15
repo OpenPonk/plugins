@@ -11,18 +11,20 @@ SmalltalkCISpec {
 		}
 	],
 	#postLoading : [
-		'scripts/script.st'
+		'.github/scripts/script.st'
 	],
 	#testing : {
 		#coverage : {
 			#packages : [
 				'OpenPonk*',
-				'Borm*'
+				'Borm*',
+				'OP-*'
 			]
 		},
 		#packages : [
 			'OpenPonk*',
-			'Borm*'
+			'Borm*',
+			'OP-*'
 		]
 	}
 }
