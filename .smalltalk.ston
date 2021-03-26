@@ -18,13 +18,15 @@ SmalltalkCISpec {
 			#packages : [
 				'OpenPonk*',
 				'Borm*',
-				'OP-*'
+				'OP-*',
+				'OntoUML*'
 			]
 		},
 		#packages : [
 			'OpenPonk*',
 			'Borm*',
-			'OP-*'
+			'OP-*',
+			'OntoUML*'
 		]
 	}
 }
