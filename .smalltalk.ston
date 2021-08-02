@@ -4,7 +4,7 @@ SmalltalkCISpec {
 			#platforms : [
 				#pharo
 			],
-			#baseline : 'OpenPonk',
+			#baseline : 'OpenPonkPlugins',
 			#repository : 'github://openponk/plugins',
 			#directory : 'src',
 			#load : [ 'all' ]
