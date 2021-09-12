@@ -17,7 +17,10 @@ cp $ci_build_dir/TravisCI.changes $package_dir/$PROJECT_NAME.changes
 cp $ci_build_dir/*.sources $package_dir
 
 cp $vm_dir/*.dll $package_dir
-cp $vm_dir/Pharo.exe $package_dir/$PROJECT_NAME.exe
+cp $vm_dir/Pharo.exe $package_dir
+cp $vm_dir/PharoConsole.exe $package_dir
+
+echo start ./Pharo.exe $PROJECT_NAME.image > $PROJECT_NAME.bat
 
 & $vm_dir/PharoConsole.exe -headless $package_dir/$PROJECT_NAME.image eval --save "OPVersion currentWithRunId: $RUN_ID projectName: '$REPOSITORY_NAME'"
 

@@ -14,6 +14,7 @@ cp $ci_build_dir/*.sources $package_dir
 
 cp -r $vm_dir/bin $package_dir/bin
 cp -r $vm_dir/lib $package_dir/lib
+
 cat << EOF > $package_dir/$PROJECT_NAME
 #!/bin/bash
 ./bin/pharo $PROJECT_NAME.image
