@@ -115,7 +115,7 @@ jobs:
         shell: bash
         timeout-minutes: 12
       - name: Create zip
-        run: chmod u+x .github/scripts/build-linux.sh; ./.github/scripts/build-linux-large-models.sh
+        run: chmod u+x .github/scripts/build-linux-large-models.sh; ./.github/scripts/build-linux-large-models.sh
       - name: Cache zip
         uses: actions/cache@v2.1.7
         with:
@@ -140,7 +140,7 @@ jobs:
         shell: bash
         timeout-minutes: 12
       - name: Create zip
-        run: chmod u+x .github/scripts/build-mac.sh; ./.github/scripts/build-mac-large-models.sh
+        run: chmod u+x .github/scripts/build-mac-large-models.sh; ./.github/scripts/build-mac-large-models.sh
       - name: Cache zip
         uses: actions/cache@v2.1.7
         with:
@@ -224,7 +224,7 @@ jobs:
         run: exit 1
 
   check-linux-cache-p8:
-    needs: build-linux
+    needs: build-linux-p8
     runs-on: ubuntu-latest
     name: 'Check Linux zip is created - Pharo 8'
     env:     
@@ -241,7 +241,7 @@ jobs:
         run: exit 1
 
   check-mac-cache-p8:
-    needs: build-mac
+    needs: build-mac-p8
     runs-on: macos-latest
     name: 'Check Mac zip is created - Pharo 8'
     env:     
@@ -258,7 +258,7 @@ jobs:
         run: exit 1
 
   check-win-cache-p8:
-    needs: build-win
+    needs: build-win-p8
     runs-on: windows-latest
     name: 'Check Windows zip is created - Pharo 8'
     env:     
