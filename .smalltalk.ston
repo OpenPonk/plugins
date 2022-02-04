@@ -14,14 +14,6 @@ SmalltalkCISpec {
 		'.github/scripts/script.st'
 	],
 	#testing : {
-		#coverage : {
-			#packages : [
-				'OpenPonk*',
-				'Borm*',
-				'OP-*',
-				'OntoUML*'
-			]
-		},
 		#packages : [
 			'OpenPonk*',
 			'Borm*',
