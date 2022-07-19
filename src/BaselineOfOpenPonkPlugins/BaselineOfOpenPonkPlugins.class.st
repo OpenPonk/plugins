@@ -12,16 +12,16 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 		spec
 			baseline: 'ClassEditor' with: [ 
 				spec
-					repository: 'github://OpenPonk/class-editor:spec2';
+					repository: 'github://OpenPonk/class-editor';
 					loads: #( 'complete' ) ];
 			baseline: 'BormEditor'
-			with: [ spec repository: 'github://OpenPonk/borm-editor:spec2' ];
+			with: [ spec repository: 'github://OpenPonk/borm-editor' ];
 			baseline: 'PetriNets'
-			with: [ spec repository: 'github://OpenPonk/petrinets:spec2' ];
+			with: [ spec repository: 'github://OpenPonk/petrinets' ];
 			baseline: 'FsmEditor'
-			with: [ spec repository: 'github://OpenPonk/fsm-editor:spec2' ];
+			with: [ spec repository: 'github://OpenPonk/fsm-editor' ];
 			baseline: 'BPMN'
-			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN:spec2' ].
+			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN' ].
 		spec
 			group: 'all'
 			with:
