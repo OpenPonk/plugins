@@ -12,16 +12,16 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 		spec
 			baseline: 'ClassEditor' with: [ 
 				spec
-					repository: 'github://OpenPonk/class-editor:dev/Roassal3';
+					repository: 'github://OpenPonk/class-editor:dev-roassal3';
 					loads: #( 'complete' ) ];
 			baseline: 'BormEditor'
-			with: [ spec repository: 'github://OpenPonk/borm-editor:dev/Roassal3' ];
+			with: [ spec repository: 'github://OpenPonk/borm-editor:dev-roassal3' ];
 			baseline: 'PetriNets'
-			with: [ spec repository: 'github://OpenPonk/petrinets:dev/Roassal3' ];
+			with: [ spec repository: 'github://OpenPonk/petrinets:dev-roassal3' ];
 			baseline: 'FsmEditor'
-			with: [ spec repository: 'github://OpenPonk/fsm-edito:dev/Roassal3r' ];
+			with: [ spec repository: 'github://OpenPonk/fsm-editor:dev-roassal3' ];
 			baseline: 'BPMN'
-			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN:dev/Roassal3' ].
+			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN:dev-roassal3' ].
 		spec
 			group: 'all'
 			with:
