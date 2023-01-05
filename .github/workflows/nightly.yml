@@ -14,6 +14,8 @@ on:
     secrets:
       WORKFLOW_ACCESS_TOKEN:
         required: true
+  schedule:
+    - cron: "42 23 31 12 *"
 
 env:
   REPOSITORY_NAME: '${{ github.event.repository.name }}'
@@ -45,7 +47,7 @@ jobs:
       - name: Create zip
         run: chmod u+x .github/scripts/build-linux.sh; ./.github/scripts/build-linux.sh
       - name: Cache zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/save@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -70,7 +72,7 @@ jobs:
       - name: Create zip
         run: chmod u+x .github/scripts/build-mac.sh; ./.github/scripts/build-mac.sh
       - name: Cache zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/save@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -95,7 +97,7 @@ jobs:
       - name: Create zip
         run: ./.github/scripts/build-win.ps1
       - name: Cache zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/save@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -109,7 +111,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/restore@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -126,7 +128,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/restore@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -143,7 +145,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/restore@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -151,10 +153,32 @@ jobs:
         if: steps.get-zip.outputs.cache-hit != 'true'
         run: exit 1
 
-  create-release:
+
+  save-stats:
     needs: [check-linux-cache, check-mac-cache, check-win-cache]
     runs-on: ubuntu-latest
+    name: 'Save dl stats of previous build'
+    env:
+      PLATFORM: linux
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.4.0
+      - name: Get zip from cache
+        id: get-zip
+        uses: actions/cache/restore@v3.2.2
+        with:
+          path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
+          key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
+      - name: Save dl stats of previous build
+        run: chmod u+x .github/scripts/save-stats.sh; ./.github/scripts/save-stats.sh
+
+
+  create-release:
+    needs: save-stats
+    runs-on: ubuntu-latest
     name: 'Re-create release'
+    env:
+      PLATFORM: linux
     steps:
       - name: Re-create release
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -173,7 +197,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/restore@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -202,7 +226,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/restore@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -231,7 +255,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache@v2.1.7
+        uses: actions/cache/restore@v3.2.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
