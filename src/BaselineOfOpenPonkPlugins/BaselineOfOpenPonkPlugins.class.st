@@ -8,23 +8,22 @@ Class {
 BaselineOfOpenPonkPlugins >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ 
+	spec for: #common do: [
 		spec
-			baseline: 'ClassEditor' with: [ 
+			baseline: 'ClassEditor' with: [
 				spec
-					repository: 'github://OpenPonk/class-editor:dev-roassal3';
+					repository: 'github://OpenPonk/class-editor';
 					loads: #( 'complete' ) ];
 			baseline: 'BormEditor'
-			with: [ spec repository: 'github://OpenPonk/borm-editor:dev-roassal3' ];
+			with: [ spec repository: 'github://OpenPonk/borm-editor' ];
 			baseline: 'PetriNets'
-			with: [ spec repository: 'github://OpenPonk/petrinets:dev-roassal3' ];
+			with: [ spec repository: 'github://OpenPonk/petrinets' ];
 			baseline: 'FsmEditor'
-			with: [ spec repository: 'github://OpenPonk/fsm-editor:dev-roassal3' ];			
+			with: [ spec repository: 'github://OpenPonk/fsm-editor' ];
 			baseline: 'BPMN'
-			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN:dev-roassal3' ].
+			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN' ].
 		spec
 			group: 'all'
-			with:
-				#( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor'"temporarily disabled BPMN until tests are green 'BPMN'" );
+			with: #( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor' "temporarily disabled BPMN until tests are green 'BPMN'" );
 			group: 'default' with: #( 'all' ) ]
 ]
