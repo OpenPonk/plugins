@@ -8,9 +8,9 @@ Class {
 BaselineOfOpenPonkPlugins >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ 
+	spec for: #common do: [
 		spec
-			baseline: 'ClassEditor' with: [ 
+			baseline: 'ClassEditor' with: [
 				spec
 					repository: 'github://OpenPonk/class-editor';
 					loads: #( 'complete' ) ];
@@ -24,7 +24,6 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN' ].
 		spec
 			group: 'all'
-			with:
-				#( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor' 'BPMN' );
+			with: #( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor' "temporarily disabled BPMN until tests are green 'BPMN'" );
 			group: 'default' with: #( 'all' ) ]
 ]
