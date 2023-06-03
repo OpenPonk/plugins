@@ -24,6 +24,6 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 			with: [ spec repository: 'github://OpenPonk/OpenPonk-BPMN' ].
 		spec
 			group: 'all'
-			with: #( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor' "temporarily disabled BPMN until tests are green 'BPMN'" );
+			with: #( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor' 'BPMN' );
 			group: 'default' with: #( 'all' ) ]
 ]
