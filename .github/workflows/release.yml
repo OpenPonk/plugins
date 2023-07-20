@@ -4,12 +4,15 @@ on:
   release:
     types: [published]
   workflow_call:
+    secrets:
+      ACTIONS_READ_ACCESS_TOKEN:
+        required: true
 
 env:
-  REPOSITORY_NAME: '${{ github.event.repository.name }}'
+  REPOSITORY_NAME: ${{ github.event.repository.name }}
   PROJECT_NAME: 'openponk-${{ github.event.repository.name }}'
-  VERSION: ${{ github.event.release.tag_name }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VERSION: ${{ github.event.release.tag_name }}
   RUN_ID: ${{ github.run_id }}
   
 jobs:
@@ -19,20 +22,32 @@ jobs:
       PLATFORM: ${{ github.job }}
     name: 'Build Linux and upload zip'
     steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: hpi-swa/setup-smalltalkCI@1.3.2
+      - uses: actions/checkout@v4.1.0
+      - uses: hpi-swa/setup-smalltalkCI@1.3.4
         id: smalltalkci
         with:
           smalltalk-image: Pharo64-11
+      - name: Prepare scripts directory
+        run: mkdir -p .github/scripts
+      - name: Download Pharo preLoad script
+        run: curl -o .github/scripts/preLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/preLoad.st
+      - name: Download Pharo postLoad script
+        run: curl -o .github/scripts/postLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/postLoad.st
       - name: Prepare image and test
         run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
         shell: bash
         timeout-minutes: 12
+      - name: Download zip script
+        run: curl -o .github/scripts/build-linux.sh https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/build-linux.sh
+      - name: Prepare zip script
+        run: chmod u+x .github/scripts/build-linux.sh
       - name: Create zip
-        run: chmod u+x .github/scripts/build-linux.sh; ./.github/scripts/build-linux.sh
+        run: .github/scripts/build-linux.sh
+        env: 
+          ACTIONS_READ_ACCESS_TOKEN: ${{ secrets.ACTIONS_READ_ACCESS_TOKEN }}
       - name: Get release
         id: get_release
-        uses: bruceadams/get-release@v1.2.3
+        uses: bruceadams/get-release@v1.3.2
       - name: Upload zip
         id: upload-zip
         uses: actions/upload-release-asset@v1.0.2
@@ -48,20 +63,32 @@ jobs:
       PLATFORM: ${{ github.job }}
     name: 'Build Mac and upload zip'
     steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: hpi-swa/setup-smalltalkCI@1.3.2
+      - uses: actions/checkout@v4.1.0
+      - uses: hpi-swa/setup-smalltalkCI@1.3.4
         id: smalltalkci
         with:
           smalltalk-image: Pharo64-11
+      - name: Prepare scripts directory
+        run: mkdir -p .github/scripts
+      - name: Download Pharo preLoad script
+        run: curl -o .github/scripts/preLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/preLoad.st
+      - name: Download Pharo postLoad script
+        run: curl -o .github/scripts/postLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/postLoad.st
       - name: Prepare image and test
         run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
         shell: bash
         timeout-minutes: 12
+      - name: Download zip script
+        run: curl -o .github/scripts/build-mac.sh https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/build-mac.sh
+      - name: Prepare zip script
+        run: chmod u+x .github/scripts/build-mac.sh
       - name: Create zip
-        run: chmod u+x .github/scripts/build-mac.sh; ./.github/scripts/build-mac.sh
+        run: .github/scripts/build-mac.sh
+        env: 
+          ACTIONS_READ_ACCESS_TOKEN: ${{ secrets.ACTIONS_READ_ACCESS_TOKEN }}
       - name: Get release
         id: get_release
-        uses: bruceadams/get-release@v1.2.3
+        uses: bruceadams/get-release@v1.3.2
       - name: Upload zip
         id: upload-zip
         uses: actions/upload-release-asset@v1.0.2
@@ -77,20 +104,30 @@ jobs:
       PLATFORM: ${{ github.job }}
     name: 'Build Windows and upload zip'
     steps:
-      - uses: actions/checkout@v2.4.0
-      - uses: hpi-swa/setup-smalltalkCI@1.3.2
+      - uses: actions/checkout@v4.1.0
+      - uses: hpi-swa/setup-smalltalkCI@1.3.4
         id: smalltalkci
         with:
           smalltalk-image: Pharo64-11
+      - name: Prepare scripts directory
+        run: md -Force .github/scripts
+      - name: Download Pharo preLoad script
+        run: curl -o .github/scripts/preLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/preLoad.st
+      - name: Download Pharo postLoad script
+        run: curl -o .github/scripts/postLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/postLoad.st
       - name: Prepare image and test
         run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
         shell: bash
         timeout-minutes: 20
+      - name: Download zip script
+        run: curl -o .github/scripts/build-win.ps1 https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/build-win.ps1
       - name: Create zip
-        run: ./.github/scripts/build-win.ps1
+        run: .github/scripts/build-win.ps1
+        env: 
+          ACTIONS_READ_ACCESS_TOKEN: ${{ secrets.ACTIONS_READ_ACCESS_TOKEN }}
       - name: Get release
         id: get_release
-        uses: bruceadams/get-release@v1.2.3
+        uses: bruceadams/get-release@v1.3.2
       - name: Upload zip
         id: upload-zip
         uses: actions/upload-release-asset@v1.0.2

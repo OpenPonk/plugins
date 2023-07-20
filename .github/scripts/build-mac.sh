@@ -23,9 +23,9 @@ chmod a+rx $package_dir/$PROJECT_NAME
 
 cat << EOF > $package_dir/README.txt
 
--- Opening OpenPonk on macOS 10 and 11 --
+-- Opening OpenPonk on macOS 10+ --
 
-Main issue of opening OpenPonk on macOS 10 is Gatekeeper protection against executables from unverified sources.
+Main issue of opening OpenPonk on macOS 10+ is Gatekeeper protection against executables from unverified sources.
 There are two options to overcome it. 
 First option requires a little more clicking each time opening OpenPonk, but very simple first time setup, 
 Second option requires much more steps first time opening (or after updating OP), but further opening becomes simple double click.

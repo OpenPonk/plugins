@@ -14,14 +14,16 @@ on:
     secrets:
       WORKFLOW_ACCESS_TOKEN:
         required: true
+      ACTIONS_READ_ACCESS_TOKEN:
+        required: true
   schedule:
     - cron: "42 23 31 12 *"
 
 env:
-  REPOSITORY_NAME: '${{ github.event.repository.name }}'
+  REPOSITORY_NAME: ${{ github.event.repository.name }}
   PROJECT_NAME: 'openponk-${{ github.event.repository.name }}'
-  VERSION: 'nightly'
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  VERSION: 'nightly'
   cache-name: zip-cache
   RUN_ID: ${{ github.run_id }}
 
@@ -34,20 +36,32 @@ jobs:
     name: 'Build Linux'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.1.0
       - name: Load SmalltalkCI environment
-        uses: hpi-swa/setup-smalltalkCI@1.3.2
+        uses: hpi-swa/setup-smalltalkCI@1.3.4
         id: smalltalkci
         with:
           smalltalk-image: Pharo64-11
+      - name: Prepare scripts directory
+        run: mkdir -p .github/scripts
+      - name: Download Pharo preLoad script
+        run: curl -o .github/scripts/preLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/preLoad.st
+      - name: Download Pharo postLoad script
+        run: curl -o .github/scripts/postLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/postLoad.st
+      - name: Download zip script
+        run: curl -o .github/scripts/build-linux.sh https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/build-linux.sh
       - name: Prepare image and test
         run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
         shell: bash
         timeout-minutes: 12
+      - name: Prepare zip script
+        run: chmod u+x .github/scripts/build-linux.sh
       - name: Create zip
-        run: chmod u+x .github/scripts/build-linux.sh; ./.github/scripts/build-linux.sh
+        run: .github/scripts/build-linux.sh
+        env: 
+          ACTIONS_READ_ACCESS_TOKEN: ${{ secrets.ACTIONS_READ_ACCESS_TOKEN }}
       - name: Cache zip
-        uses: actions/cache/save@v3.2.2
+        uses: actions/cache/save@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -59,20 +73,32 @@ jobs:
     name: 'Build Mac'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.1.0
       - name: Load SmalltalkCI environment
-        uses: hpi-swa/setup-smalltalkCI@1.3.2
+        uses: hpi-swa/setup-smalltalkCI@1.3.4
         id: smalltalkci
         with:
           smalltalk-image: Pharo64-11
+      - name: Prepare scripts directory
+        run: mkdir -p .github/scripts
+      - name: Download Pharo preLoad script
+        run: curl -o .github/scripts/preLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/preLoad.st
+      - name: Download Pharo postLoad script
+        run: curl -o .github/scripts/postLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/postLoad.st
       - name: Prepare image and test
         run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
         shell: bash
         timeout-minutes: 12
+      - name: Download zip script
+        run: curl -o .github/scripts/build-mac.sh https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/build-mac.sh
+      - name: Prepare zip script
+        run: chmod u+x .github/scripts/build-mac.sh
       - name: Create zip
-        run: chmod u+x .github/scripts/build-mac.sh; ./.github/scripts/build-mac.sh
+        run: .github/scripts/build-mac.sh
+        env: 
+          ACTIONS_READ_ACCESS_TOKEN: ${{ secrets.ACTIONS_READ_ACCESS_TOKEN }}
       - name: Cache zip
-        uses: actions/cache/save@v3.2.2
+        uses: actions/cache/save@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -84,20 +110,30 @@ jobs:
     name: 'Build Windows'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.1.0
       - name: Load SmalltalkCI environment
-        uses: hpi-swa/setup-smalltalkCI@1.3.2
+        uses: hpi-swa/setup-smalltalkCI@1.3.4
         id: smalltalkci
         with:
           smalltalk-image: Pharo64-11
+      - name: Prepare scripts directory
+        run: md -Force .github/scripts
+      - name: Download Pharo preLoad script
+        run: curl -o .github/scripts/preLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/preLoad.st
+      - name: Download Pharo postLoad script
+        run: curl -o .github/scripts/postLoad.st https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/postLoad.st
       - name: Prepare image and test
         run: smalltalkci -s ${{ steps.smalltalkci.outputs.smalltalk-image }}
         shell: bash
         timeout-minutes: 20
+      - name: Download zip script
+        run: curl -o .github/scripts/build-win.ps1 https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/build-win.ps1
       - name: Create zip
-        run: ./.github/scripts/build-win.ps1
+        run: .github/scripts/build-win.ps1
+        env: 
+          ACTIONS_READ_ACCESS_TOKEN: ${{ secrets.ACTIONS_READ_ACCESS_TOKEN }}
       - name: Cache zip
-        uses: actions/cache/save@v3.2.2
+        uses: actions/cache/save@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -111,7 +147,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -128,7 +164,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -145,7 +181,7 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
@@ -162,15 +198,21 @@ jobs:
       PLATFORM: linux
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.1.0
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
-      - name: Save dl stats of previous build
-        run: chmod u+x .github/scripts/save-stats.sh; ./.github/scripts/save-stats.sh
+      - name: Prepare scripts directory
+        run: mkdir -p .github/scripts
+      - name: Download save stats script
+        run: curl -o .github/scripts/save-stats.sh https://raw.githubusercontent.com/openponk/plugins/master/.github/scripts/save-stats.sh
+      - name: Prepare save stats script
+        run: chmod u+x .github/scripts/save-stats.sh
+      - name: Save dl stats of last nightly build
+        run: .github/scripts/save-stats.sh
 
 
   create-release:
@@ -197,15 +239,13 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
       - name: Get Release by Tag
         id: get_release_by_tag
         uses: jonfriesen/get-release-by-tag@v0.0.11
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: nightly
       - name: Upload zip
@@ -226,15 +266,13 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
       - name: Get Release by Tag
         id: get_release_by_tag
         uses: jonfriesen/get-release-by-tag@v0.0.11
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: nightly
       - name: Upload zip
@@ -255,15 +293,13 @@ jobs:
     steps:
       - name: Get zip from cache
         id: get-zip
-        uses: actions/cache/restore@v3.2.2
+        uses: actions/cache/restore@v3.3.2
         with:
           path: ${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
           key: ${{ github.run_id }}-${{ github.run_number }}_${{ env.PROJECT_NAME }}-${{ env.PLATFORM }}-${{ env.VERSION }}.zip
       - name: Get Release by Tag
         id: get_release_by_tag
         uses: jonfriesen/get-release-by-tag@v0.0.11
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: nightly
       - name: Upload zip
@@ -284,7 +320,7 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v4.1.0
       - name: Check list of repositories exists
         id: check-file
         run: test -f ./.github/dependent-repositories.txt || exit 1
@@ -301,9 +337,10 @@ jobs:
       matrix: ${{fromJson(needs.create-dependent-matrix.outputs.matrix)}}
     steps:
       - name: Start ${{ matrix.repository }} build
-        uses: benc-uk/workflow-dispatch@v1.1.0
+        uses: benc-uk/workflow-dispatch@v1.2.2
         with:
           workflow: Nightly
           repo: ${{ matrix.repository }}
+          ref: ${{ matrix.branch }}
           token: ${{ secrets.WORKFLOW_ACCESS_TOKEN }}
           inputs: '{ "build-dependent": "${{ matrix.build-dependent }}" }'
