@@ -25,7 +25,10 @@ cp $vm_dir/PharoConsole.exe $package_dir/Pharo
 "@echo off
 start `"`" `"%~dp0Pharo\Pharo.exe`" `"%~dp0image\$PROJECT_NAME.image`"" | set-content "$package_dir/$PROJECT_NAME.bat"
 
-"Open using $PROJECT_NAME.bat.
+"Make sure you do not put OpenPonk directory in a path with non-ASCII chars (like š,ý,ü etc.), otherwise it would not open.
+
+Open using $PROJECT_NAME.bat.
+
 Opening may take several seconds. When the window opens, click on inner desktop to show menu items, including OpenPonk related ones.
 " | set-content "$package_dir/README.txt"
 
