@@ -10,7 +10,6 @@ unzip -q $PROJECT_NAME-$PLATFORM-$VERSION.zip
 
 "$package_dir/pharo/bin/pharo" --headless $package_dir/image/$PROJECT_NAME.image eval "
 | getResponse getContents downloads text timestamp filename putResponse |
-PharoCommandLineHandler forcePreferencesOmission: false.
 
 getResponse := ZnClient new
                    url:
