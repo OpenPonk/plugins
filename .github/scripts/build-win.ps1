@@ -27,14 +27,17 @@ start `"`" `"%~dp0Pharo\Pharo.exe`" `"%~dp0image\$PROJECT_NAME.image`"" | set-co
 
 ". `"`$PSScriptRoot\Pharo\Pharo.exe`" `"`$PSScriptRoot\image\openponk-plugins.image`"" | set-content "$package_dir/$PROJECT_NAME.ps1"
 
-"Make sure you do not put OpenPonk directory in a path with non-ASCII chars (like š,ý,ü etc.), otherwise it would not open.
+"# Installation and Opening
+
+Make sure you do not put OpenPonk directory in a path with non-ASCII chars (like š,ý,ü etc.), otherwise it would not open.
 
 Open using $PROJECT_NAME.bat.
 
-If OpenPonk becomes unresponsive soon after opening and keeps increasing memory usage quickly, try opening by right-clicking $PROJECT_NAME.ps1 and `"Run with powershell`"
+Opening may take several seconds. If OpenPonk becomes unresponsive almost immediately and keeps increasing memory usage quickly, try opening by right-clicking $PROJECT_NAME.ps1 and `"Run with powershell`"
 
-Opening may take several seconds. When the window opens, you may click on background to show menu items, including OpenPonk-related ones.
-" | set-content "$package_dir/README.txt"
+" | Set-Content "$package_dir/README.txt"
+
+Get-Content -Path .github\scripts\readmecommon.txt | Add-Content -Path "$package_dir/README.txt"
 
 & $vm_dir/PharoConsole.exe -headless $package_dir/image/$PROJECT_NAME.image eval --save "OPVersion currentWithRunId: $RUN_ID projectName: '$REPOSITORY_NAME'"
 

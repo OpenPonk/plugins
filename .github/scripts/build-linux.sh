@@ -27,20 +27,26 @@ pharo-ui \`dirname "\$0"\`/image/$PROJECT_NAME.image
 EOF
 
 cat << EOF > $package_dir/README.txt
+# Installation and Opening
+
 To run OpenPonk on Debian-based, Ubuntu-based and possibly other Linux distros, simply use $PROJECT_NAME executable.
 
--- In case of errors/exceptions --
+## In case of errors/exceptions
 OpenPonk might encounter some error when used with some Linux distros. In that case, installation of Pharo programming language is required (sudo privileges needed).
 
-1. Open Pharo builds website: https://software.opensuse.org//download.html?project=devel:languages:pharo:stable&package=pharo-ui
-2. Select your Linux distribution.
-3. Select "Add repository and install manually".
-4. Follow shown instruction if any and execute shown bash code in terminal - one line at a time.
- You might need to prepend "sudo" before each line.
- If your distro version number does not match given options, try manually changing the version number/name in shown code.
+	1. Open Pharo builds website: https://software.opensuse.org//download.html?project=devel:languages:pharo:stable&package=pharo-ui
+	2. Select your Linux distribution.
+	3. Select "Add repository and install manually".
+	4. Follow shown instruction if any and execute shown bash code in terminal - one line at a time.
+ 		You might need to prepend "sudo" before each line.
+ 		If your distro version number does not match given options, try manually changing the version number/name in shown code.
 
 After Pharo is installed, you may run OpenPonk using $PROJECT_NAME-pharo-ui executable.
+
+
 EOF
+
+cat ".github/scripts/readmecommon.txt" >> "$package_dir/README.txt"
 
 chmod a+rx $package_dir/$PROJECT_NAME $package_dir/$PROJECT_NAME-pharo-ui
 

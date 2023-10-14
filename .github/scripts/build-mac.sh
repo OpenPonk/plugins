@@ -23,7 +23,7 @@ chmod a+rx $package_dir/$PROJECT_NAME
 
 cat << EOF > $package_dir/README.txt
 
--- Opening OpenPonk on macOS 10+ --
+# Installation and Opening on MacOS 10+
 
 Main issue of opening OpenPonk on macOS 10+ is Gatekeeper protection against executables from unverified sources.
 There are two options to overcome it. 
@@ -72,7 +72,11 @@ Second option:
 		-> OpenPonk should open now. If there is a window asking to receive keystrokes, you may Deny it
 	Opening:
 		1) Double click $PROJECT_NAME (Unix executable)
+
+
 EOF
+
+cat ".github/scripts/readmecommon.txt" >> "$package_dir/README.txt"
 
 $vm_dir/Pharo.app/Contents/MacOS/Pharo --headless $package_dir/image/$PROJECT_NAME.image eval --save "OPVersion currentWithRunId: $RUN_ID projectName: '$REPOSITORY_NAME'"
 
