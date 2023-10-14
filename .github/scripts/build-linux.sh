@@ -43,7 +43,6 @@ OpenPonk might encounter some error when used with some Linux distros. In that c
 
 After Pharo is installed, you may run OpenPonk using $PROJECT_NAME-pharo-ui executable.
 
-
 EOF
 
 cat ".github/scripts/readmecommon.txt" >> "$package_dir/README.txt"

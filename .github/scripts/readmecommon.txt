@@ -51,3 +51,4 @@ Zoom in/out:	+/-
 Delete element:	Delete (with confirmation dialog) or Ctrl+Delete (without confirmation)
 Hide element:	Ctrl+H
 Save OpenPonk environment (option 1 save): Ctrl+Shift+S
+

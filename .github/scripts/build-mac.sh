@@ -5,6 +5,8 @@ set -euxo pipefail
 ci_build_dir=$SMALLTALK_CI_BUILD
 package_dir="$PROJECT_NAME-$PLATFORM"
 vm_dir=`cat $SMALLTALK_CI_VM | sed 's|\(.*\)/.*|\1|'`/pharo-vm
+package_dir_arm="$PROJECT_NAME-$PLATFORM-ARM"
+vm_dir_arm=arm-pharo-vm
 
 mkdir -p "$package_dir/image"
 
@@ -73,7 +75,6 @@ Second option:
 	Opening:
 		1) Double click $PROJECT_NAME (Unix executable)
 
-
 EOF
 
 cat ".github/scripts/readmecommon.txt" >> "$package_dir/README.txt"
@@ -81,3 +82,15 @@ cat ".github/scripts/readmecommon.txt" >> "$package_dir/README.txt"
 $vm_dir/Pharo.app/Contents/MacOS/Pharo --headless $package_dir/image/$PROJECT_NAME.image eval --save "OPVersion currentWithRunId: $RUN_ID projectName: '$REPOSITORY_NAME'"
 
 zip -qr $PROJECT_NAME-$PLATFORM-$VERSION.zip $package_dir
+
+# ARM variant
+mkdir -p "$vm_dir_arm"
+mkdir -p "$package_dir_arm"
+
+wget "https://files.pharo.org/get-files/${PHARO_VERSION}0/pharo-vm-Darwin-arm64-stable.zip"
+unzip pharo-vm-Darwin-arm64-stable.zip -d "$vm_dir_arm"
+cp -r "$package_dir"/* "$package_dir_arm"
+rm -rf "$package_dir_arm/Pharo.app"
+cp -r $vm_dir_arm/Pharo.app/ $package_dir_arm/Pharo.app
+
+zip -qr $PROJECT_NAME-$PLATFORM-ARM-$VERSION.zip $package_dir_arm
