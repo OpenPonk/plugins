@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfOpenPonkPlugins,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfOpenPonkPlugins
+	#name : 'BaselineOfOpenPonkPlugins',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfOpenPonkPlugins',
+	#package : 'BaselineOfOpenPonkPlugins'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfOpenPonkPlugins >> baseline: spec [
 
 	<baseline>
