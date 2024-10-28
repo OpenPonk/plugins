@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfOpenPonkPlugins,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfOpenPonkPlugins
+	#name : 'BaselineOfOpenPonkPlugins',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfOpenPonkPlugins',
+	#package : 'BaselineOfOpenPonkPlugins'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfOpenPonkPlugins >> baseline: spec [
 
 	<baseline>
@@ -23,7 +24,7 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 			baseline: 'BPMN'
 			with: [ spec repository: 'github://OpenPonk/BPMN' ];
 			baseline: 'MarkovChains'
-			with: [ spec repository: 'github://OpenPonk/markov-chains:main' ].
+			with: [ spec repository: 'github://OpenPonk/markov-chains' ].
 		spec
 			group: 'all'
 			with:

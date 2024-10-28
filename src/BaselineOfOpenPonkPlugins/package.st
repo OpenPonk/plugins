@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfOpenPonkPlugins }
+Package { #name : 'BaselineOfOpenPonkPlugins' }
