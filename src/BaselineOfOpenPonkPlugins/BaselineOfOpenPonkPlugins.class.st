@@ -11,24 +11,24 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 	<baseline>
 	spec for: #common do: [
 		spec
-			baseline: 'ClassEditor' with: [
+			baseline: 'OpenPonkClassEditor' with: [
 				spec
 					repository: 'github://OpenPonk/class-editor';
 					loads: #( 'complete' ) ];
-			baseline: 'BormEditor'
+			baseline: 'OpenPonkBormEditor'
 			with: [ spec repository: 'github://OpenPonk/borm-editor' ];
-			baseline: 'PetriNets'
+			baseline: 'OpenPonkPetriNets'
 			with: [ spec repository: 'github://OpenPonk/petrinets' ];
-			baseline: 'FsmEditor'
+			baseline: 'OpenPonkFsmEditor'
 			with: [ spec repository: 'github://OpenPonk/fsm-editor' ];
-			baseline: 'BPMN'
+			baseline: 'OpenPonkBPMN'
 			with: [ spec repository: 'github://OpenPonk/BPMN' ];
-			baseline: 'MarkovChains'
+			baseline: 'OpenPonkMarkovChains'
 			with: [ spec repository: 'github://OpenPonk/markov-chains' ].
 		spec
 			group: 'all'
 			with:
-				#( 'ClassEditor' 'BormEditor' 'PetriNets' 'FsmEditor' 'BPMN'
-				   'MarkovChains' );
+				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets' 'OpenPonkFsmEditor' 'OpenPonkBPMN'
+				   'OpenPonkMarkovChains' );
 			group: 'default' with: #( 'all' ) ]
 ]
