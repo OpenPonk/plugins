@@ -14,10 +14,10 @@ SmalltalkCISpec {
 	#postLoading : 'ci-scripts/.github/scripts/postLoad.st',
 	#testing : {
 		#packages : [
-			'OpenPonk*',
-			'Borm*',
-			'OP-*',
-			'OntoUML*'
-		]
+			'OpenPonk*'
+		],
+		#coverage : {
+			#packages : [ 'OpenPonk*' ]
+		}
 	}
 }
