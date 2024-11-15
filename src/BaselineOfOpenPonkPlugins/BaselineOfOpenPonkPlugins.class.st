@@ -13,18 +13,18 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 		spec
 			baseline: 'OpenPonkClassEditor' with: [
 				spec
-					repository: 'github://OpenPonk/class-editor';
+					repository: 'github://OpenPonk/class-editor:v4.1.x';
 					loads: #( 'complete' ) ];
 			baseline: 'OpenPonkBormEditor'
-			with: [ spec repository: 'github://OpenPonk/borm-editor' ];
+			with: [ spec repository: 'github://OpenPonk/borm-editor:v4.1.x' ];
 			baseline: 'OpenPonkPetriNets'
-			with: [ spec repository: 'github://OpenPonk/petrinets' ];
+			with: [ spec repository: 'github://OpenPonk/petrinets:v4.1.x' ];
 			baseline: 'OpenPonkFsmEditor'
-			with: [ spec repository: 'github://OpenPonk/fsm-editor' ];
+			with: [ spec repository: 'github://OpenPonk/fsm-editor:v4.1.x' ];
 			baseline: 'OpenPonkBPMN'
-			with: [ spec repository: 'github://OpenPonk/BPMN' ];
+			with: [ spec repository: 'github://OpenPonk/BPMN:v4.1.x' ];
 			baseline: 'OpenPonkMarkovChains'
-			with: [ spec repository: 'github://OpenPonk/markov-chains' ].
+			with: [ spec repository: 'github://OpenPonk/markov-chains:v4.1.x' ].
 		spec
 			group: 'all'
 			with:
