@@ -24,11 +24,13 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 			baseline: 'OpenPonkBPMN'
 			with: [ spec repository: 'github://OpenPonk/BPMN' ];
 			baseline: 'OpenPonkMarkovChains'
-			with: [ spec repository: 'github://OpenPonk/markov-chains' ].
+			with: [ spec repository: 'github://OpenPonk/markov-chains' ];
+			baseline: 'OpenPonkDEMO'
+			with: [ spec repository: 'github://OpenPonk/DEMO' ].
 		spec
 			group: 'all'
 			with:
 				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets' 'OpenPonkFsmEditor' 'OpenPonkBPMN'
-				   'OpenPonkMarkovChains' );
+				   'OpenPonkMarkovChains' 'OpenPonkDEMO' );
 			group: 'default' with: #( 'all' ) ]
 ]
