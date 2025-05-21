@@ -15,24 +15,39 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 				spec
 					repository: 'github://OpenPonk/class-editor';
 					loads: #( 'complete' ) ];
-			baseline: 'OpenPonkBormEditor'
-			with: [ spec repository: 'github://OpenPonk/borm-editor' ];
-			baseline: 'OpenPonkPetriNets'
-			with: [ spec repository: 'github://OpenPonk/petrinets' ];
-			baseline: 'OpenPonkFsmEditor'
-			with: [ spec repository: 'github://OpenPonk/fsm-editor' ];
-			baseline: 'OpenPonkBPMN'
-			with: [ spec repository: 'github://OpenPonk/BPMN' ];
-			baseline: 'OpenPonkMarkovChains'
-			with: [ spec repository: 'github://OpenPonk/markov-chains' ];
-			baseline: 'OpenPonkERD'
-			with: [ spec repository: 'github://OpenPonk/ERD:main' ];
-			baseline: 'OpenPonkDEMO'
-			with: [ spec repository: 'github://OpenPonk/DEMO:main' ].
+			baseline: 'OpenPonkBormEditor' with: [
+			spec
+				repository: 'github://OpenPonk/borm-editor';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkPetriNets' with: [
+			spec
+				repository: 'github://OpenPonk/petrinets';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkFsmEditor' with: [
+			spec
+				repository: 'github://OpenPonk/fsm-editor';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkBPMN' with: [
+			spec
+				repository: 'github://OpenPonk/BPMN';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkMarkovChains' with: [
+			spec
+				repository: 'github://OpenPonk/markov-chains';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkERD' with: [
+			spec
+				repository: 'github://OpenPonk/ERD:main';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkDEMO' with: [
+			spec
+				repository: 'github://OpenPonk/DEMO:main';
+				loads: #( plugin ) ].
 		spec
 			group: 'all'
 			with:
-				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets' 'OpenPonkFsmEditor' 'OpenPonkBPMN'
-				   'OpenPonkMarkovChains' 'OpenPonkERD' 'OpenPonkDEMO' );
+				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets'
+				   'OpenPonkFsmEditor' 'OpenPonkBPMN' 'OpenPonkMarkovChains'
+				   'OpenPonkERD' 'OpenPonkDEMO' );
 			group: 'default' with: #( 'all' ) ]
 ]
