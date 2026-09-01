@@ -1,3 +1,6 @@
+"
+Metacello baseline aggregating the loading configurations and dependencies for all primary OpenPonk plugins.
+"
 Class {
 	#name : 'BaselineOfOpenPonkPlugins',
 	#superclass : 'BaselineOf',
