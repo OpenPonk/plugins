@@ -45,12 +45,17 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 			baseline: 'OpenPonkDEMO' with: [
 			spec
 				repository: 'github://OpenPonk/DEMO:main';
-				loads: #( plugin ) ].
+				loads: #( plugin ) ];
+			baseline: 'OpenPonk' with: [
+			spec
+				repository: 'github://OpenPonk/openponk';
+				loads: #( 'dev-plugin' ) ].
 		spec
 			group: 'all'
 			with:
 				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets'
 				   'OpenPonkFsmEditor' 'OpenPonkBPMN' 'OpenPonkMarkovChains'
 				   'OpenPonkERD' 'OpenPonkDEMO' );
-			group: 'default' with: #( 'all' ) ]
+			group: 'default' with: #( 'all' );
+			group: 'dev' with: #( 'all' 'OpenPonk' ) ]
 ]
