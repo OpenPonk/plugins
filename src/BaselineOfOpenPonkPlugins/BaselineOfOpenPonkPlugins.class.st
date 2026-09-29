@@ -16,39 +16,39 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 		spec
 			baseline: 'OpenPonkClassEditor' with: [
 				spec
-					repository: 'github://OpenPonk/class-editor:v4.1.x';
+					repository: 'github://openponk/class-editor:v5.0.0';
 					loads: #( 'complete' ) ];
 			baseline: 'OpenPonkBormEditor' with: [
 			spec
-				repository: 'github://OpenPonk/borm-editor';
+				repository: 'github://openponk/borm-editor:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonkPetriNets' with: [
 			spec
-				repository: 'github://OpenPonk/petrinets';
+				repository: 'github://openponk/petrinets:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonkFsmEditor' with: [
 			spec
-				repository: 'github://OpenPonk/fsm-editor';
+				repository: 'github://openponk/fsm-editor:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonkBPMN' with: [
 			spec
-				repository: 'github://OpenPonk/BPMN';
+				repository: 'github://openponk/BPMN:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonkMarkovChains' with: [
 			spec
-				repository: 'github://OpenPonk/markov-chains';
+				repository: 'github://openponk/markov-chains:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonkERD' with: [
 			spec
-				repository: 'github://OpenPonk/ERD:main';
+				repository: 'github://openponk/ERD:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonkDEMO' with: [
 			spec
-				repository: 'github://OpenPonk/DEMO:main';
+				repository: 'github://openponk/DEMO:v5.0.0';
 				loads: #( plugin ) ];
 			baseline: 'OpenPonk' with: [
 			spec
-				repository: 'github://OpenPonk/openponk';
+				repository: 'github://openponk/openponk:v5.0.0';
 				loads: #( 'dev-plugin' ) ].
 		spec
 			group: 'all'
