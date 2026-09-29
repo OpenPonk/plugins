@@ -1,3 +1,6 @@
+"
+Metacello baseline aggregating the loading configurations and dependencies for all primary OpenPonk plugins.
+"
 Class {
 	#name : 'BaselineOfOpenPonkPlugins',
 	#superclass : 'BaselineOf',
@@ -15,20 +18,44 @@ BaselineOfOpenPonkPlugins >> baseline: spec [
 				spec
 					repository: 'github://OpenPonk/class-editor:v4.1.x';
 					loads: #( 'complete' ) ];
-			baseline: 'OpenPonkBormEditor'
-			with: [ spec repository: 'github://OpenPonk/borm-editor:v4.1.x' ];
-			baseline: 'OpenPonkPetriNets'
-			with: [ spec repository: 'github://OpenPonk/petrinets:v4.1.x' ];
-			baseline: 'OpenPonkFsmEditor'
-			with: [ spec repository: 'github://OpenPonk/fsm-editor:v4.1.x' ];
-			baseline: 'OpenPonkBPMN'
-			with: [ spec repository: 'github://OpenPonk/BPMN:v4.1.x' ];
-			baseline: 'OpenPonkMarkovChains'
-			with: [ spec repository: 'github://OpenPonk/markov-chains:v4.1.x' ].
+			baseline: 'OpenPonkBormEditor' with: [
+			spec
+				repository: 'github://OpenPonk/borm-editor';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkPetriNets' with: [
+			spec
+				repository: 'github://OpenPonk/petrinets';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkFsmEditor' with: [
+			spec
+				repository: 'github://OpenPonk/fsm-editor';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkBPMN' with: [
+			spec
+				repository: 'github://OpenPonk/BPMN';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkMarkovChains' with: [
+			spec
+				repository: 'github://OpenPonk/markov-chains';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkERD' with: [
+			spec
+				repository: 'github://OpenPonk/ERD:main';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonkDEMO' with: [
+			spec
+				repository: 'github://OpenPonk/DEMO:main';
+				loads: #( plugin ) ];
+			baseline: 'OpenPonk' with: [
+			spec
+				repository: 'github://OpenPonk/openponk';
+				loads: #( 'dev-plugin' ) ].
 		spec
 			group: 'all'
 			with:
-				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets' 'OpenPonkFsmEditor' 'OpenPonkBPMN'
-				   'OpenPonkMarkovChains' );
-			group: 'default' with: #( 'all' ) ]
+				#( 'OpenPonkClassEditor' 'OpenPonkBormEditor' 'OpenPonkPetriNets'
+				   'OpenPonkFsmEditor' 'OpenPonkBPMN' 'OpenPonkMarkovChains'
+				   'OpenPonkERD' 'OpenPonkDEMO' );
+			group: 'default' with: #( 'all' );
+			group: 'dev' with: #( 'all' 'OpenPonk' ) ]
 ]
