@@ -1,22 +1,1 @@
-SmalltalkCISpec {
-	#loading : [
-		SCIMetacelloLoadSpec {
-			#platforms : [
-				#pharo
-			],
-			#baseline : 'OpenPonkPlugins',
-			#directory : 'src',
-			#load : [ 'all' ]
-		}
-	],
-	#preLoading : 'ci-scripts/.github/scripts/preLoad.st',
-	#postLoading : 'ci-scripts/.github/scripts/postLoad.st',
-	#testing : {
-		#packages : [
-			'OpenPonk*'
-		],
-		#coverage : {
-			#packages : [ 'OpenPonk*' ]
-		}
-	}
-}
+SmalltalkCISpec {	#loading : [		SCIMetacelloLoadSpec {			#platforms : [				#pharo			],			#baseline : 'OpenPonkPlugins',			#directory : 'src',			#load : [ 'all' ]		}	],	#preLoading : 'ci-scripts/.github/scripts/preLoad.st',	#postLoading : 'ci-scripts/.github/scripts/postLoad.st',	#testing : {		#packages : [			'OpenPonk*'		]	}}
